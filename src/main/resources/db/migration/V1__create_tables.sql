@@ -21,7 +21,7 @@ CREATE TABLE advisors
         constraint PK_advisors_id PRIMARY KEY,
     role ROLE not null,
     constraint advisor_users_fk FOREIGN KEY (id)
-        REFERENCES users (id)
+        references users (id)
 );
 
 CREATE TABLE applicants
@@ -33,7 +33,7 @@ CREATE TABLE applicants
     ssn        int  not null
         constraint UQ_applicants_ssn UNIQUE,
     constraint applicants_users_fk FOREIGN KEY (id)
-        REFERENCES users (id)
+        references users (id)
 );
 
 CREATE TABLE numbers
@@ -44,7 +44,7 @@ CREATE TABLE numbers
     type         PHONE_TYPE not null,
     applicant_id bigserial  not null,
     constraint numbers_applicants_fk FOREIGN KEY (applicant_id)
-        references applicants (id)
+        references applicants (id) on DELETE cascade
 );
 
 CREATE TABLE addresses
@@ -55,9 +55,9 @@ CREATE TABLE addresses
     street text not null,
     number text not null,
     zip    int  not null,
-    apt    int,
+    apt    text,
     constraint addresses_applicants_fk FOREIGN KEY (id)
-        references applicants (id)
+        references applicants (id) on DELETE cascade
 );
 
 CREATE TABLE applications
